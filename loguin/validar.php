@@ -1,6 +1,9 @@
 <?php
     include('includes/db.php');
-    $usuario = $_POST['usuario'];
+
+    if(!empty($_POST['usuario']) && !(empty($_POST['contraseña']))){
+
+        $usuario = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];
     session_start();
     $_SESSION['usuario']=$usuario;
@@ -19,9 +22,14 @@
         }
 
         if($carg == "Administrador"){
-            header("location:includes/home.php");
+            header("location:includes/admin/admin.php");
+        }else if($carg == "Docente"){
+            header("location:includes/docente/docente.php");
         }else{
-            header("Location:../../../../Universidad-UNISEN/index.php");
+            include("index.html");
+            ?>
+            <h1 class="bad">USUARIO NO ACEPTADO</h1>
+            <?php
         }
     }else{
 ?>
@@ -33,4 +41,15 @@
     }
     mysqli_free_result($resultado);
     mysqli_close($connection);
+}else{
+    include("index.html")
+    ?>
+    <h1 class="bad">hay espacion bacios</h1>
+    <?php
+}
+
         ?>
+
+    
+
+    
